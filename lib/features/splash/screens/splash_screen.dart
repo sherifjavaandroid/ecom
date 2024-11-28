@@ -99,7 +99,7 @@ class _SplashScreenState extends State<SplashScreen> {
           mainAxisSize: MainAxisSize.min,
           children: [
             Image.asset(Images.logo, width: 170,),
-            Text(AppConstants.appName, style: rubikBold.copyWith(fontSize: 30, color: Colors.white)),
+        //    Text(AppConstants.appName, style: rubikBold.copyWith(fontSize: 30, color: Colors.white)),
           ],
         ),
       ),

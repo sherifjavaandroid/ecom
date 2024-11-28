@@ -138,7 +138,7 @@ class _MenuScreenState extends State<MenuScreen> {
                           PortionWidget(imageIcon: Images.trackOrder, title: getTranslated('track_order', context), route: ()=>  RouteHelper.getOrderSearchScreen(context)),
                           PortionWidget(imageIcon: Images.order, title: getTranslated('my_orders', context), route: ()=>  RouteHelper.getOrderListScreen(context)),
                           PortionWidget(imageIcon: Images.address, title: getTranslated('my_address', context), route: ()=>  RouteHelper.getAddressRoute(context)),
-                          PortionWidget(imageIcon: Images.couponMenuIcon, title: getTranslated('coupon', context), route: ()=>  RouteHelper.getCouponRoute(context)),
+                        //  PortionWidget(imageIcon: Images.couponMenuIcon, title: getTranslated('coupon', context), route: ()=>  RouteHelper.getCouponRoute(context)),
 
                           InkWell(
                             onTap: (){
@@ -185,42 +185,42 @@ class _MenuScreenState extends State<MenuScreen> {
                     ]),
 
 
-                    Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: Dimensions.paddingSizeDefault),
-                        child: Text(
-                          getTranslated('help_and_support', context),
-                          style: rubikMedium.copyWith(fontSize: Dimensions.fontSizeDefault, color: Theme.of(context).primaryColor.withOpacity(0.5)),
-                        ),
-                      ),
-
-                      Container(
-                        decoration: BoxDecoration(
-                          color: Theme.of(context).cardColor,
-                          borderRadius: BorderRadius.circular(Dimensions.radiusSizeDefault),
-                          boxShadow: const [BoxShadow(color: Colors.black12, spreadRadius: 1, blurRadius: 5)],
-                        ),
-                        padding: const EdgeInsets.symmetric(horizontal: Dimensions.paddingSizeLarge, vertical: Dimensions.paddingSizeDefault),
-                        margin: const EdgeInsets.all(Dimensions.paddingSizeDefault),
-                        child: Column(children: [
-                          PortionWidget(imageIcon: Images.message, title: getTranslated('live_chat', context), route: ()=>  RouteHelper.getChatRoute(context)),
-                          PortionWidget(imageIcon: Images.helpSupport, title: getTranslated('help_and_support', context), route:() =>  RouteHelper.getSupportRoute(context)),
-                          PortionWidget(imageIcon: Images.aboutUs, title: getTranslated('about_us', context), route: ()=>  RouteHelper.getAboutUsRoute(context)),
-                          PortionWidget(imageIcon: Images.termsAndCondition, title: getTranslated('terms_and_condition', context), route: ()=>  RouteHelper.getTermsRoute(context)),
-                          PortionWidget(imageIcon: Images.privacyPolicy, title: getTranslated('privacy_policy', context), route: ()=>  RouteHelper.getPolicyRoute(context)),
-
-                          if(policyModel?.refundPage?.status ?? false)
-                            PortionWidget(imageIcon: Images.refundPolicy, title: getTranslated('refund_policy', context), route: ()=> RouteHelper.getRefundPolicyRoute(context)),
-
-                          if(policyModel?.returnPage?.status ?? false)
-                            PortionWidget(imageIcon: Images.refundPolicy, title: getTranslated('return_policy', context), route: () => RouteHelper.getReturnPolicyRoute(context)),
-
-                          if(policyModel?.cancellationPage?.status ?? false)
-                            PortionWidget(imageIcon: Images.cancellationPolicy, title: getTranslated('cancellation_policy', context), route: ()=>  RouteHelper.getCancellationPolicyRoute(context), hideDivider: true),
-
-                        ]),
-                      )
-                    ]),
+                    // Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                    //   Padding(
+                    //     padding: const EdgeInsets.symmetric(horizontal: Dimensions.paddingSizeDefault),
+                    //     child: Text(
+                    //       getTranslated('help_and_support', context),
+                    //       style: rubikMedium.copyWith(fontSize: Dimensions.fontSizeDefault, color: Theme.of(context).primaryColor.withOpacity(0.5)),
+                    //     ),
+                    //   ),
+                    //
+                    //   Container(
+                    //     decoration: BoxDecoration(
+                    //       color: Theme.of(context).cardColor,
+                    //       borderRadius: BorderRadius.circular(Dimensions.radiusSizeDefault),
+                    //       boxShadow: const [BoxShadow(color: Colors.black12, spreadRadius: 1, blurRadius: 5)],
+                    //     ),
+                    //     padding: const EdgeInsets.symmetric(horizontal: Dimensions.paddingSizeLarge, vertical: Dimensions.paddingSizeDefault),
+                    //     margin: const EdgeInsets.all(Dimensions.paddingSizeDefault),
+                    //     child: Column(children: [
+                    //       PortionWidget(imageIcon: Images.message, title: getTranslated('live_chat', context), route: ()=>  RouteHelper.getChatRoute(context)),
+                    //       PortionWidget(imageIcon: Images.helpSupport, title: getTranslated('help_and_support', context), route:() =>  RouteHelper.getSupportRoute(context)),
+                    //       PortionWidget(imageIcon: Images.aboutUs, title: getTranslated('about_us', context), route: ()=>  RouteHelper.getAboutUsRoute(context)),
+                    //       PortionWidget(imageIcon: Images.termsAndCondition, title: getTranslated('terms_and_condition', context), route: ()=>  RouteHelper.getTermsRoute(context)),
+                    //       PortionWidget(imageIcon: Images.privacyPolicy, title: getTranslated('privacy_policy', context), route: ()=>  RouteHelper.getPolicyRoute(context)),
+                    //
+                    //       if(policyModel?.refundPage?.status ?? false)
+                    //         PortionWidget(imageIcon: Images.refundPolicy, title: getTranslated('refund_policy', context), route: ()=> RouteHelper.getRefundPolicyRoute(context)),
+                    //
+                    //       if(policyModel?.returnPage?.status ?? false)
+                    //         PortionWidget(imageIcon: Images.refundPolicy, title: getTranslated('return_policy', context), route: () => RouteHelper.getReturnPolicyRoute(context)),
+                    //
+                    //       if(policyModel?.cancellationPage?.status ?? false)
+                    //         PortionWidget(imageIcon: Images.cancellationPolicy, title: getTranslated('cancellation_policy', context), route: ()=>  RouteHelper.getCancellationPolicyRoute(context), hideDivider: true),
+                    //
+                    //     ]),
+                    //   )
+                    // ]),
 
                     if(isLoggedIn) Container(
                       margin: const EdgeInsets.symmetric(horizontal: Dimensions.paddingSizeDefault),
@@ -281,7 +281,7 @@ class _MenuScreenState extends State<MenuScreen> {
                     ),
                     const SizedBox(height: Dimensions.paddingSizeLarge),
 
-                    Text('${getTranslated('version', context)} ${AppConstants.appVersion}', style: rubikMedium.copyWith(
+                    Text('powered by Allsafe ', style: rubikMedium.copyWith(
                       color: Theme.of(context).textTheme.titleMedium?.color?.withOpacity(0.4),
                     )),
                     const SizedBox(height: Dimensions.paddingSizeExtraLarge),

@@ -49,22 +49,22 @@ class HomeAppBarWidget extends StatelessWidget {
       )),
       actions: [
 
-        InkWell(
-          borderRadius: BorderRadius.circular(50),
-          hoverColor: Colors.transparent,
-          onTap: () => RouteHelper.getCouponRoute(context, action: RouteAction.push),
-          child: Container(
-            decoration: BoxDecoration(
-              color: Theme.of(context).secondaryHeaderColor,
-              shape: BoxShape.circle,
-            ),
-
-            child: Padding(
-              padding: const EdgeInsets.all(8),
-              child: Image.asset(Images.coupon, height: 16, width: 16),
-            ),
-          ),
-        ),
+        // InkWell(
+        //   borderRadius: BorderRadius.circular(50),
+        //   hoverColor: Colors.transparent,
+        //   onTap: () => RouteHelper.getCouponRoute(context, action: RouteAction.push),
+        //   child: Container(
+        //     decoration: BoxDecoration(
+        //       color: Theme.of(context).secondaryHeaderColor,
+        //       shape: BoxShape.circle,
+        //     ),
+        //
+        //     child: Padding(
+        //       padding: const EdgeInsets.all(8),
+        //       child: Image.asset(Images.coupon, height: 16, width: 16),
+        //     ),
+        //   ),
+        // ),
         const SizedBox(width: Dimensions.paddingSizeLarge),
 
         IconButton(

@@ -64,17 +64,17 @@ Future<void> main() async {
 
   if(kIsWeb) {
     await Firebase.initializeApp(options: const FirebaseOptions(
-      apiKey: "AIzaSyBCtDfdfPqxXDO6rDNlmQC1VJSH3w",
+      apiKey: "AIzaSyBEboG7Y1gh49TpOszYJSCNy80qQ014ZLo",
       authDomain: "gem-b5006.firebaseapp.com",
-      projectId: "gem-b5006",
-      storageBucket: "gem-b5006.appspot.com",
+      projectId: "adelstore-c3993",
+      storageBucket: "adelstore-c3993.firebasestorage.app",
       messagingSenderId: "384321080318",
-      appId: "1:384321080318:web:9cf2ec90f41dfb8a2c0eaf",
+      appId: "1:483881909035:android:65e8d90ee0055ddfe3e36e",
       measurementId: "G-RQ899NQVHN",
     ));
 
     await FacebookAuth.instance.webAndDesktopInitialize(
-      appId: "YOUR_APP_ID",
+      appId: "1:483881909035:android:65e8d90ee0055ddfe3e36e",
       cookie: true,
       xfbml: true,
       version: "v13.0",

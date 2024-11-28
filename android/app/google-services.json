@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "483881909035",
+    "project_id": "adelstore-c3993",
+    "storage_bucket": "adelstore-c3993.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:483881909035:android:65e8d90ee0055ddfe3e36e",
+        "android_client_info": {
+          "package_name": "com.sherifahmed.adelstore"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBEboG7Y1gh49TpOszYJSCNy80qQ014ZLo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

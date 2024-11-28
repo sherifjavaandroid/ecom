@@ -107,11 +107,11 @@ class _LoginScreenState extends State<LoginScreen> {
       return CustomPopScopeWidget(
         child: Scaffold(
           backgroundColor: ResponsiveHelper.isDesktop(context) ? null :  Theme.of(context).cardColor,
-          appBar: ResponsiveHelper.isDesktop(context) ? const PreferredSize(preferredSize: Size.fromHeight(90), child: WebAppBarWidget()) : null,
+        //  appBar: ResponsiveHelper.isDesktop(context) ? const PreferredSize(preferredSize: Size.fromHeight(60), child: WebAppBarWidget()) : null,
           body: SafeArea(child: CustomScrollView(slivers: [
             SliverToBoxAdapter(child: Center(
               child: SizedBox(
-                width: ResponsiveHelper.isDesktop(context) ? 450 : null,
+                width: ResponsiveHelper.isDesktop(context) ? 300 : null,
                 height: ResponsiveHelper.isDesktop(context) ? null : MediaQuery.sizeOf(context).height,
                 child: Column(mainAxisSize: MainAxisSize.min, mainAxisAlignment: MainAxisAlignment.center, children: [
 
@@ -138,7 +138,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             !ResponsiveHelper.isDesktop(context) ? Center(
                               child: Image.asset(
                                 Images.logo,
-                                height: ResponsiveHelper.isDesktop(context) ? 100.0 : 80,
+                                height: ResponsiveHelper.isDesktop(context) ? 100.0 : 400,
                                 fit: BoxFit.scaleDown,
                                 matchTextDirection: true,
                               ),
@@ -413,6 +413,35 @@ class _LoginScreenState extends State<LoginScreen> {
               ]),
             ),
 
+            if (ResponsiveHelper.isDesktop(context)) ...[
+             SizedBox(height: size.height * 0.02),
+            ],
+
+            SliverFillRemaining(
+              hasScrollBody: false,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  SizedBox(height: Dimensions.paddingSizeLarge),
+                  FooterWebWidget(footerType: FooterType.nonSliver),
+
+                  // Powered by All Safe text
+                  Padding(
+                    padding: const EdgeInsets.all(100.0),  // Adjust padding as necessary
+                    child: Align(
+                      alignment: Alignment.bottomCenter,
+                      child: Text(
+                        'Powered by All Safe',
+                        style: TextStyle(
+                          fontSize: 14,  // Adjust font size as needed
+                          color: Theme.of(context).hintColor, // Use a color that matches the theme
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
 
 
 

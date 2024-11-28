@@ -60,7 +60,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
 
   late bool _isLoggedIn;
   late List<CartModel?> _cartList;
-  List<Branches>? _branches = [];
+ // List<Branches>? _branches = [];
 
 
   @override
@@ -72,7 +72,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
     final AuthProvider authProvider = context.read<AuthProvider>();
 
     _isLoggedIn = Provider.of<AuthProvider>(context, listen: false).isLoggedIn();
-    _branches = Provider.of<SplashProvider>(context, listen: false).configModel?.branches;
+   // _branches = Provider.of<SplashProvider>(context, listen: false).configModel?.branches;
     orderProvider.setAreaID(isReload: true, isUpdate: false);
     orderProvider.setDeliveryCharge(0, notify: false);
 
@@ -152,9 +152,9 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
 
                     CustomWebTitleWidget(title: getTranslated('checkout', context)),
 
-                    if(!ResponsiveHelper.isDesktop(context))
-                      MapViewWidget(isSelfPickUp: selfPickup),
-                    const SizedBox(height: Dimensions.paddingSizeDefault),
+                    // if(!ResponsiveHelper.isDesktop(context))
+                    //   MapViewWidget(isSelfPickUp: selfPickup),
+                    // const SizedBox(height: Dimensions.paddingSizeDefault),
 
                     //Zip/Area
                     if(!ResponsiveHelper.isDesktop(context) && CheckOutHelper.getDeliveryChargeType(context) == DeliveryChargeType.area.name && !selfPickup)...[
@@ -197,12 +197,12 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                 BoxShadow(color:Theme.of(context).shadowColor, blurRadius: 10),
                               ],
                             ),
-                            child: MapViewWidget(
-                              isSelfPickUp: selfPickup,
-                              dropDownKey: dropDownKey,
-                              discount: widget.discount ?? 0.0,
-                              amount: widget.amount ?? 0.0,
-                            ),
+                            // child: MapViewWidget(
+                            //   isSelfPickUp: selfPickup,
+                            //   dropDownKey: dropDownKey,
+                            //   discount: widget.discount ?? 0.0,
+                            //   amount: widget.amount ?? 0.0,
+                            // ),
                           )),
                         const SizedBox(width: Dimensions.paddingSizeLarge),
 
