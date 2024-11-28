@@ -1,1 +1,0 @@
-C:\Users\hp\AndroidStudioProjects\adelstore\android\app\src\main\kotlin\com\sherifahmed\adelstore\MainActivity.kt
