@@ -53,24 +53,24 @@ class SupportScreen extends StatelessWidget {
               const SizedBox(height: Dimensions.paddingSizeLarge),
 
               SupportCardWidget(
-                title: configModel?.ecommerceAddress ?? '',
+                title: "2 ه - ش عبدالعزيز بدر - المعادى 🇪🇬 \n 15 شارع عبدالعزيز عيسي .المنطقة التاسعة.مدينة نصر 🇪🇬 " ,
                 icon: Images.branchIcon,
                 onTap: (){},
               ),
               const SizedBox(height: Dimensions.paddingSizeDefault),
 
               SupportCardWidget(
-                title: configModel?.ecommercePhone ?? '',
+                title: "+201091886122",
                 icon: Images.callIcon,
-                onTap: ()=> launchUrlString('tel:${configModel?.ecommercePhone}', mode: LaunchMode.externalApplication),
+                onTap: ()=> launchUrlString('tel:+201091886122', mode: LaunchMode.externalApplication),
               ),
               const SizedBox(height: Dimensions.paddingSizeDefault),
 
               SupportCardWidget(
-                title: configModel?.ecommerceEmail ?? '',
+                title: "info@allsafeeg.com",
                 icon: Images.messageIcon,
                 onTap: () async {
-                  await launchUrl(Uri.parse('mailto:${configModel?.ecommerceEmail ?? ''}'), mode: LaunchMode.externalApplication);
+                  await launchUrl(Uri.parse('mailto:"info@allsafeeg.com'), mode: LaunchMode.externalApplication);
 
                 },
               ),

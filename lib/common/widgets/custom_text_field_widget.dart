@@ -199,6 +199,7 @@ class _CustomTextFieldWidgetState extends State<CustomTextFieldWidget> {
                     onChanged: widget.onCountryChanged,
                     initialSelection: widget.countryDialCode,
                     favorite: [widget.countryDialCode ?? ""],
+                    
                     showDropDownButton: true,
                     padding: EdgeInsets.zero,
                     showFlagMain: true,

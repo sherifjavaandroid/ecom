@@ -7,7 +7,7 @@ class AppConstants {
   static const double appVersion = 7.4;
   static const AppMode appMode = AppMode.release;
   static const String fontFamily = 'Exo';
-  static const String baseUrl = 'https://hexacom-admin.6amtech.com';
+  static const String baseUrl = 'https://adel-store.allsafeeg-project.com';
   static const String categoryUri = '/api/v1/categories';
   static const String bannerUri = '/api/v1/banners';
   static const String latestProductUri = '/api/v1/products/latest';

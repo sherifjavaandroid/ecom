@@ -1,22 +1,23 @@
 import 'dart:async';
 import 'dart:io';
+
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:hexacom_user/common/models/notification_body.dart';
+import 'package:hexacom_user/features/auth/providers/auth_provider.dart';
+import 'package:hexacom_user/features/cart/providers/cart_provider.dart';
+import 'package:hexacom_user/features/splash/providers/splash_provider.dart';
 import 'package:hexacom_user/helper/notification_helper.dart';
 import 'package:hexacom_user/helper/responsive_helper.dart';
 import 'package:hexacom_user/localization/language_constrants.dart';
-import 'package:hexacom_user/features/auth/providers/auth_provider.dart';
-import 'package:hexacom_user/features/cart/providers/cart_provider.dart';
 import 'package:hexacom_user/provider/language_provider.dart';
-import 'package:hexacom_user/features/splash/providers/splash_provider.dart';
 import 'package:hexacom_user/utill/app_constants.dart';
 import 'package:hexacom_user/utill/images.dart';
 import 'package:hexacom_user/utill/routes.dart';
-import 'package:hexacom_user/utill/styles.dart';
-import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -30,31 +31,34 @@ class _SplashScreenState extends State<SplashScreen> {
   late StreamSubscription<List<ConnectivityResult>> _onConnectivityChanged;
   NotificationBody? notificationBody;
 
-
-
   @override
   void initState() {
     super.initState();
     triggerFirebaseNotification();
 
     bool firstTime = true;
-    _onConnectivityChanged = Connectivity().onConnectivityChanged.listen((result) {
-      if(!firstTime) {
-        bool isNotConnected = result.contains(ConnectivityResult.mobile) || result.contains(ConnectivityResult.wifi);
-        isNotConnected ? const SizedBox() : _globalKey.currentState!.hideCurrentSnackBar();
+    _onConnectivityChanged =
+        Connectivity().onConnectivityChanged.listen((result) {
+      if (!firstTime) {
+        bool isNotConnected = result.contains(ConnectivityResult.mobile) ||
+            result.contains(ConnectivityResult.wifi);
+        isNotConnected
+            ? const SizedBox()
+            : _globalKey.currentState!.hideCurrentSnackBar();
         _globalKey.currentState!.showSnackBar(SnackBar(
           backgroundColor: isNotConnected ? Colors.red : Colors.green,
           duration: Duration(seconds: isNotConnected ? 6000 : 3),
           content: Text(
-            isNotConnected ? getTranslated('no_connection', _globalKey.currentContext!): getTranslated('connected', _globalKey.currentContext!),
+            isNotConnected
+                ? getTranslated('no_connection', _globalKey.currentContext!)
+                : getTranslated('connected', _globalKey.currentContext!),
             textAlign: TextAlign.center,
           ),
         ));
 
-        if(!isNotConnected) {
+        if (!isNotConnected) {
           _routeToPage();
         }
-
       }
 
       firstTime = false;
@@ -64,17 +68,19 @@ class _SplashScreenState extends State<SplashScreen> {
 
     Provider.of<CartProvider>(context, listen: false).getCartData();
     _routeToPage();
-    Provider.of<LanguageProvider>(context, listen: false).initializeAllLanguages(context);
-
+    Provider.of<LanguageProvider>(context, listen: false)
+        .initializeAllLanguages(context);
   }
 
   triggerFirebaseNotification() async {
     try {
-      final RemoteMessage? remoteMessage = await FirebaseMessaging.instance.getInitialMessage();
+      final RemoteMessage? remoteMessage =
+          await FirebaseMessaging.instance.getInitialMessage();
       if (remoteMessage != null) {
-        notificationBody = NotificationHelper.convertNotification(remoteMessage.data);
+        notificationBody =
+            NotificationHelper.convertNotification(remoteMessage.data);
       }
-    }catch(e) {
+    } catch (e) {
       if (kDebugMode) {
         print(e);
       }
@@ -88,18 +94,25 @@ class _SplashScreenState extends State<SplashScreen> {
     _onConnectivityChanged.cancel();
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       key: _globalKey,
-      backgroundColor: Theme.of(context).primaryColor,
+      backgroundColor: Colors.white,
+      //  Theme.of(context).primaryColor,
       body: Center(
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Image.asset(Images.logo, width: 170,),
-        //    Text(AppConstants.appName, style: rubikBold.copyWith(fontSize: 30, color: Colors.white)),
+            Spacer(),
+            Image.asset(
+              Images.logo,
+              width: 170,
+            ),
+            const Spacer(),
+            const AllSafeWidget()
+
+            //    Text(AppConstants.appName, style: rubikBold.copyWith(fontSize: 30, color: Colors.white)),
           ],
         ),
       ),
@@ -107,45 +120,65 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   void _routeToPage() {
-
     final SplashProvider splashProvider = context.read<SplashProvider>();
 
-    splashProvider.initConfig().then((bool isSuccess) async{
+    splashProvider.initConfig().then((bool isSuccess) async {
       if (isSuccess) {
-
         await splashProvider.getDeliveryInfo();
 
         Timer(const Duration(seconds: 1), () async {
           double minimumVersion = 0.0;
-          if(Platform.isAndroid) {
-            if(Provider.of<SplashProvider>(context, listen: false).configModel!.playStoreConfig!.minVersion!=null){
-              minimumVersion = Provider.of<SplashProvider>(context, listen: false).configModel!.playStoreConfig!.minVersion?? 6.0;
-
+          if (Platform.isAndroid) {
+            if (Provider.of<SplashProvider>(context, listen: false)
+                    .configModel!
+                    .playStoreConfig!
+                    .minVersion !=
+                null) {
+              minimumVersion =
+                  Provider.of<SplashProvider>(context, listen: false)
+                          .configModel!
+                          .playStoreConfig!
+                          .minVersion ??
+                      6.0;
             }
-          }else if(Platform.isIOS) {
-            if(Provider.of<SplashProvider>(context, listen: false).configModel!.appStoreConfig!.minVersion!=null){
-              minimumVersion = Provider.of<SplashProvider>(context, listen: false).configModel!.appStoreConfig!.minVersion?? 6.0;
+          } else if (Platform.isIOS) {
+            if (Provider.of<SplashProvider>(context, listen: false)
+                    .configModel!
+                    .appStoreConfig!
+                    .minVersion !=
+                null) {
+              minimumVersion =
+                  Provider.of<SplashProvider>(context, listen: false)
+                          .configModel!
+                          .appStoreConfig!
+                          .minVersion ??
+                      6.0;
             }
           }
 
-          if(AppConstants.appVersion < minimumVersion && !ResponsiveHelper.isWeb()) {
-            RouteHelper.getUpdateRoute(context, action: RouteAction.pushNamedAndRemoveUntil);
-
-          } else if (notificationBody != null){
+          if (AppConstants.appVersion < minimumVersion &&
+              !ResponsiveHelper.isWeb()) {
+            RouteHelper.getUpdateRoute(context,
+                action: RouteAction.pushNamedAndRemoveUntil);
+          } else if (notificationBody != null) {
             notificationRoute();
-          } else{
-
-            if (Provider.of<AuthProvider>(context, listen: false).isLoggedIn()) {
+          } else {
+            if (Provider.of<AuthProvider>(context, listen: false)
+                .isLoggedIn()) {
               Provider.of<AuthProvider>(context, listen: false).updateToken();
-              RouteHelper.getMainRoute(context, action: RouteAction.pushNamedAndRemoveUntil);
-
+              RouteHelper.getMainRoute(context,
+                  action: RouteAction.pushNamedAndRemoveUntil);
             } else {
-              if(Provider.of<SplashProvider>(context, listen: false).showLang()) {
-                ResponsiveHelper.isMobile(context) ? RouteHelper.getLanguageRoute(context, 'splash', action: RouteAction.pushNamedAndRemoveUntil) : RouteHelper.getMainRoute(context, action: RouteAction.pushNamedAndRemoveUntil);
-
-              }else {
-                RouteHelper.getMainRoute(context, action: RouteAction.pushNamedAndRemoveUntil);
-
+              if (Provider.of<SplashProvider>(context, listen: false)
+                  .showLang()) {
+                ResponsiveHelper.isMobile(context)
+                    ? RouteHelper.getLanguageRoute(context, 'splash',
+                        action: RouteAction.pushNamedAndRemoveUntil)
+                    : RouteHelper.getMainRoute(context,
+                        action: RouteAction.pushNamedAndRemoveUntil);
+              } else {
+                RouteHelper.getMainRoute(context,
+                    action: RouteAction.pushNamedAndRemoveUntil);
               }
             }
           }
@@ -154,17 +187,43 @@ class _SplashScreenState extends State<SplashScreen> {
     });
   }
 
-  notificationRoute(){
-    if(notificationBody?.type == "message"){
-      RouteHelper.getChatRoute(context, orderId: notificationBody?.orderId, userName: notificationBody?.userName, profileImage: notificationBody?.userImage, action: RouteAction.pushNamedAndRemoveUntil);
-    }else if(notificationBody?.type == "order"){
-      RouteHelper.getOrderDetailsRoute(context, notificationBody?.orderId, null, action: RouteAction.pushNamedAndRemoveUntil);
-    }
-    else if(notificationBody?.type == "general"){
-      RouteHelper.getNotificationRoute(context, action: RouteAction.pushNamedAndRemoveUntil);
-    }else{
-      RouteHelper.getMainRoute(context, action: RouteAction.pushNamedAndRemoveUntil);
+  notificationRoute() {
+    if (notificationBody?.type == "message") {
+      RouteHelper.getChatRoute(context,
+          orderId: notificationBody?.orderId,
+          userName: notificationBody?.userName,
+          profileImage: notificationBody?.userImage,
+          action: RouteAction.pushNamedAndRemoveUntil);
+    } else if (notificationBody?.type == "order") {
+      RouteHelper.getOrderDetailsRoute(context, notificationBody?.orderId, null,
+          action: RouteAction.pushNamedAndRemoveUntil);
+    } else if (notificationBody?.type == "general") {
+      RouteHelper.getNotificationRoute(context,
+          action: RouteAction.pushNamedAndRemoveUntil);
+    } else {
+      RouteHelper.getMainRoute(context,
+          action: RouteAction.pushNamedAndRemoveUntil);
     }
   }
+}
 
+class AllSafeWidget extends StatelessWidget {
+  const AllSafeWidget({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        launchUrl(Uri.parse("https://allsafeeg.com/"),
+            mode: LaunchMode.externalApplication);
+      },
+      child: Image.asset(
+        "assets/image/allsafe_logo.png",
+        width: MediaQuery.of(context).size.width * 0.5,
+        height: MediaQuery.of(context).size.height * 0.1,
+      ),
+    );
+  }
 }
